@@ -2,7 +2,6 @@ pipeline {
   agent any
 
 	stages {
-		/*
 		stage('Build') {
 			agent {
 				docker {
@@ -21,7 +20,6 @@ pipeline {
 				'''
 			}
 		}
-		*/
 
 		stage('Test') {
 			agent {
@@ -36,8 +34,14 @@ pipeline {
 					npm test
 				'''
 			}
+			post {
+				always {
+					junit 'jest-results/junit.xml'
+				}
+			}
 		}
 
+		/*
 		stage('E2E Tests') {
 			agent {
 				docker {
@@ -54,11 +58,6 @@ pipeline {
 				'''
 			}
 		}
-	}
-
-	post {
-		always {
-			junit 'jest-results/junit.xml'
-		}
+		*/
 	}
 }
